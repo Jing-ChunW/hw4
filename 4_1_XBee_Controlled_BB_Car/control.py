@@ -30,27 +30,29 @@ def get():
         d2 = int(inkey())*10
         d2 = int(inkey()) + d2
         print ("East", d1, d2)
-        if d1 < 8:
-            s.write("/turn/run 100 0.3 \n".encode())
-            time.sleep(2.5)
+        if d1 <= d2:
+            d22 = d2 - d1 + 11.5
+            d11 = 3.5
+            s.write("/goStraight/run 100 \n".encode())
+            time.sleep(d22/1.875/7/3.14*2.5)
+            print("straight", d22/1.875/7/3.14*2.5)
             s.write("/turn/run 100 -0.3 \n".encode())
-            time.sleep(2.2)
-            s.write("/goStraight/run -100 \n".encode())
-            time.sleep(16*t/100)
-            d1 = 16 + d1
-        if d2 < 8:
-            s.write("/goStraight/run -100 \n".encode())
-            time.sleep(16*t/100)
-            d2 = 16 + d2
-        d22 = d2 - 9+11.5
-        d11 = d1 - 9+3.5
-        s.write("/goStraight/run 100 \n".encode())
-        time.sleep(d22*t/100)
-        s.write("/turn/run 100 -0.3 \n".encode())
-        time.sleep(2.5)
-        s.write("/goStraight/run 100 \n".encode())
-        time.sleep(d11*t/100)
-        s.write("/stop/run \n".encode())
+            time.sleep(2.4)
+            print("turn", 11*d1/2/9.065/3.14*2.5)
+            s.write("/goStraight/run 100 \n".encode())
+            time.sleep(d11/1.875/7/3.14*2.5)
+            print("straight", d11/1.875/7/3.14*2.5)
+            s.write("/stop/run \n".encode())
+        else:
+            d11 = d1 - d2 + 3.5
+            d22 = 11.5
+            s.write("/goStraight/run 100 \n".encode())
+            time.sleep(d22/1.875/7/3.14*2.5)
+            s.write("/turn/run 100 -0.3 \n".encode())
+            time.sleep(2.4)
+            s.write("/goStraight/run 100 \n".encode())
+            time.sleep(d11/1.875/7/3.14*2.5)
+            s.write("/stop/run \n".encode())
     elif k2=='W':
         inkey()
         inkey()
@@ -62,27 +64,29 @@ def get():
         d2 = int(inkey())*10
         d2 = int(inkey()) + d2
         print ("West", d1, d2)
-        if d1 < 8:
-            s.write("/turn/run 100 -0.3 \n".encode())
-            time.sleep(2.8)
+        if d1 <= d2:
+            d22 = d2 - d1 + 11.5
+            d11 = 3.5
+            s.write("/goStraight/run 100 \n".encode())
+            time.sleep(d22/1.875/7/3.14*2.5)
+            print("straight", d22/1.875/7/3.14*2.5)
             s.write("/turn/run 100 0.3 \n".encode())
-            time.sleep(2.4)
-            s.write("/goStraight/run -100 \n".encode())
-            time.sleep(16*t/100)
-            d1 = 16 + d1
-        if d2 < 8:
-            s.write("/goStraight/run -100 \n".encode())
-            time.sleep(16*t/100)
-            d2 = 16 + d2
-        d22 = d2 - 9+ 11.5
-        d11 = d1 - 9+3.5
-        s.write("/goStraight/run 100 \n".encode())
-        time.sleep(d22*t/100)
-        s.write("/turn/run 100 0.3 \n".encode())
-        time.sleep(2.3)
-        s.write("/goStraight/run 100 \n".encode())
-        time.sleep(d11*t/100)
-        s.write("/stop/run \n".encode())
+            time.sleep(2.5)
+            print("turn", 11*d1/2/9.065/3.14*2.5)
+            s.write("/goStraight/run 100 \n".encode())
+            time.sleep(d11/1.875/7/3.14*2.5)
+            print("straight", d11/1.875/7/3.14*2.5)
+            s.write("/stop/run \n".encode())
+        else:
+            d11 = d1 - d2 + 3.5
+            d22 = 11.5
+            s.write("/goStraight/run 100 \n".encode())
+            time.sleep(d22/1.875/7/3.14*2.5)
+            s.write("/turn/run 100 0.3 \n".encode())
+            time.sleep(2.5)
+            s.write("/goStraight/run 100 \n".encode())
+            time.sleep(d11/1.875/7/3.14*2.5)
+            s.write("/stop/run \n".encode())
     else:
         print ("not an arrow key!")
         return 1
