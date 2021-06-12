@@ -30,7 +30,11 @@ def get():
         d2 = int(inkey())*10
         d2 = int(inkey()) + d2
         print ("East", d1, d2)
-        if d1 <= d2:
+
+        print_args = (d1, d2)
+        s.write(("E,%d,%d\n"%print_args).encode())
+        #time.sleep(5)
+        '''if d1 <= d2:
             d22 = d2 - d1 + 11.5
             d11 = 3.5
             s.write("/goStraight/run 100 \n".encode())
@@ -52,7 +56,7 @@ def get():
             time.sleep(2.4)
             s.write("/goStraight/run 100 \n".encode())
             time.sleep(d11/1.875/7/3.14*2.5)
-            s.write("/stop/run \n".encode())
+            s.write("/stop/run \n".encode())'''
     elif k2=='W':
         inkey()
         inkey()
@@ -64,7 +68,10 @@ def get():
         d2 = int(inkey())*10
         d2 = int(inkey()) + d2
         print ("West", d1, d2)
-        if d1 <= d2:
+        print_args = (d1, d2)
+        s.write(("W,%d,%d\n" % print_args).encode())
+        #time.sleep(5)
+        '''if d1 <= d2:
             d22 = d2 - d1 + 11.5
             d11 = 3.5
             s.write("/goStraight/run 100 \n".encode())
@@ -86,7 +93,7 @@ def get():
             time.sleep(2.5)
             s.write("/goStraight/run 100 \n".encode())
             time.sleep(d11/1.875/7/3.14*2.5)
-            s.write("/stop/run \n".encode())
+            s.write("/stop/run \n".encode())'''
     else:
         print ("not an arrow key!")
         return 1

@@ -23,6 +23,7 @@ volatile int last0 = 0;
 volatile int last1 = 0;
 volatile int steps0 = 0;
 volatile int steps1 = 0;
+volatile int pingping = 0;
 
 void ping_thread()
 {
@@ -40,7 +41,10 @@ void ping_thread()
       t.start();
       while(ping.read() == 1);
       val = t.read();
-      printf("Ping=%lf\n", val*17700.4f);
+      if (pingping == 1) {
+         printf("Ping=%lf\n", val*17700.4f-1);
+         pingping = 0;
+      }
       t.stop();
       t.reset();
 
@@ -95,13 +99,17 @@ int main(){
                haveread = 1;
                break;
             }
+            i++;
          }
-         i++;
       
          if (count_new == 99 && y == 0) {
             uart.write(open, sizeof(open));
             count_new = 0;
          }
+      }
+      if (enable == 0) {
+         pingping = 1;
+         enable = 2;
       }
       
          double tx = 0, ty = 0, tz = 0;
@@ -206,33 +214,40 @@ int main(){
                if (goal_angle > 0 && goal_angle < 180) {
                   car.turn(-20, 0.1);
                   angle_diff = (goal_angle - 0);
-                  while (steps0*6.5*3.14/32 < 11*2*3.14*(90 - angle_diff)/360) {
+                  steps0 = 0;
+                  while (steps0*6.5*3.14/32 < 10.5*2*3.14*(90 - angle_diff)/360) {
                      ThisThread::sleep_for(100ms);
                   }
+                  steps0 = 0;
                   car.goStraight(-20);
-                  while (steps0*6.5*3.14/32 < goal_distance*sin(angle_diff)-5) {
+                  while (steps0*6.5*3.14/32 < goal_distance*sin(angle_diff)-22) {
                      ThisThread::sleep_for(100ms);
                   }
+                  steps1 = 0;
                   car.turn(-20, -0.1);
-                  while (steps1*6.5*3.14/32 < 11*2*3.14*110/360) {
+                  while (steps1*6.5*3.14/32 < 10.5*2*3.14*110/360) {
                      ThisThread::sleep_for(100ms);
                   }
                } else if (goal_angle > 180 && goal_angle < 360) {
                   car.turn(-20, -0.05);
+                  steps1 = 0;
                   angle_diff = 360 - goal_angle;
-                  while (steps1*6.5*3.14/32 < 11*2*3.14*(90 - angle_diff)/360) {
+                  while (steps1*6.5*3.14/32 < 10.5*2*3.14*(90 - angle_diff)/360) {
                      ThisThread::sleep_for(100ms);
                   }
+                  steps0 = 0;
                   car.goStraight(-20);
-                  while (steps0*6.5*3.14/32 < goal_distance*sin(angle_diff)-10) {
+                  while (steps0*6.5*3.14/32 < goal_distance*sin(angle_diff)-22) {
                      ThisThread::sleep_for(100ms);
                   }
+                  steps0 = 0;
                   car.turn(-20, 0.05);
-                  while (steps0*6.5*3.14/32 < 11*2*3.14*110/360) {
+                  while (steps0*6.5*3.14/32 < 10.5*2*3.14*110/360) {
                      ThisThread::sleep_for(100ms);
                   }
                }
                car.stop();
+               //ThisThread::sleep_for(10s);
                enable = 0;
             } else {
                double_check++;
