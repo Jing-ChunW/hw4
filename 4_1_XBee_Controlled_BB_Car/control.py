@@ -15,7 +15,6 @@ class _Getch:
 def get():
     inkey = _Getch()
     k2 = inkey()
-    t = 7
     if k2=='q':
         print ("quit")
         return 0
