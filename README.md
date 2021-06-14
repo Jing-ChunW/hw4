@@ -10,3 +10,4 @@ control.py不用看，我後來不需要用到，但沒有刪掉而已。
 control.py不用看，我後來不需要用到，但沒有刪掉而已。
 所以執行main.cpp就行了
 89-109行是從openmv讀apriltag的值進來，後面都是存取資料到變數，然後判斷要怎麼跟著線走。
+4_2、4_3的openmv的python code都是使用final.py
